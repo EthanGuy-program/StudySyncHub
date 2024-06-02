@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+<title>do you remember?</title>
+<link rel="icon" type="image/x-icon" href="icon.ico" id="icono">
+<link rel="stylesheet" type="text/css" href='Styles.css'>
+<script>
+
+// JavaScript
+function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
+  const draggedElement = document.getElementById(draggedElementId);
+  const referenceElement = document.getElementById(referenceElementId);
+
+  if (!draggedElement || !referenceElement) {
+    console.error('Invalid element IDs provided. Dragged:', draggedElement, 'Reference:', referenceElement);
+    return;
+  }
+
+  let isDragging = false;
+
+  function handleMouseDown(e) {
+    isDragging = true;
+
+    const offsetX = e.clientX - draggedElement.offsetLeft;
+    const offsetY = e.clientY - draggedElement.offsetTop;
+
+    const referenceOffsetX = e.clientX - referenceElement.offsetLeft;
+    const referenceOffsetY = e.clientY - referenceElement.offsetTop;
+
+    function handleMouseMove(e) {
+      if (isDragging) {
+        draggedElement.style.left = e.clientX - offsetX + 'px';
+        draggedElement.style.top = e.clientY - offsetY + 'px';
+
+        if (behavior === 'together') {
+          referenceElement.style.left = e.clientX - referenceOffsetX + 'px';
+          referenceElement.style.top = e.clientY - referenceOffsetY + 'px';
+        }
+      }
+    }
+
+    function handleMouseUp() {
+      isDragging = false;
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }
+
+  referenceElement.addEventListener('mousedown', handleMouseDown);
+  draggedElement.addEventListener('mousedown', handleMouseDown);
+}
+
+// Example usage:
+// or
+// makeElementsDraggable("window", "otherElement", 'separate');
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  makeElementsDraggable("window", "otherElement", 'together');
+  makeElementsDraggable("kodder", "bodder", 'together');
+  makeElementsDraggable("iname", "fname", 'together');
+  const hudLink = document.getElementById('start-Button');
+  const movingBox = document.querySelector('.movingBox');
+  let isBoxUp = false;
+  document.getElementById('Chill').style.fontSize = '0px'
+  document.getElementById('Chill2').style.fontSize = '0px'
+
+  function toggleMoveUp() {
+    isBoxUp = !isBoxUp;
+    movingBox.classList.toggle('move-up', isBoxUp);
+  }
+
+  function handleLinkClick() {
+    toggleMoveUp();
+  }
+
+  hudLink.addEventListener('mouseover', function() {
+    if (!isBoxUp) {
+      movingBox.classList.add('move-up');
+	  document.getElementById('Chill').style.fontSize = '12px'
+    document.getElementById('Chill2').style.fontSize = '12px'
+    document.getElementById('Chill2').style.top = '-100px'
+	  hudlink.style.border = "inset";
+    }
+  });
+
+  hudLink.addEventListener('mouseout', function() {
+    if (!isBoxUp) {
+      movingBox.classList.remove('move-up');
+	  document.getElementById('Chill').style.fontSize = '0px'
+    document.getElementById('Chill2').style.fontSize = '0px'
+    document.getElementById('Chill2').style.top = '100px'
+	  hudlink.style.border = "outset";
+    }
+  });
+
+  hudLink.addEventListener('click', handleLinkClick);
+});
+
+
+    function hideContentAndShowIframe() {
+    // Get the gradient and box layers
+    const gradientLayer = document.querySelector(".gradient-layer");
+    const boxLayer = document.querySelector(".box-layer");
+    document.getElementById("icono").href = "Images/icon-1.ico"
+    const iframe = document.getElementById("myIframe");
+    
+    // Hide or remove both layers from the DOM
+    gradientLayer.style.display = "none";
+    boxLayer.style.display = "none";
+    
+    // Show the iframe
+    iframe.style.display = "block";
+    iframe.src = "Extra/index.html";  // Correcting the path here
+  
+  }
+
+    // For the actual button
+document.addEventListener('DOMContentLoaded', function() {
+  const actualButton = document.getElementById('actualButton');
+  actualButton.addEventListener('click', hideContentAndShowIframe);
+});
+
+</script>
+</head>
+<body>
+<a class="head"><a>
+<!-- Gradient layer -->
+<div class="gradient-layer" id="otherElement" style="z-index:1;"> <!--gradient top-->
+  <!-- Image inside the gradient layer -->
+  
+  <img src="Images/untitled.png" alt="Sample Image" class="ender"> <!--close button-->
+</div>
+ <div class="box-layer" id="window"> <!--this is window -->
+  Hello world
+  <!-- Actual button to show the iframe -->
+  <div><button type="button" id="actualButton">look at it</button></div> <!--//this is the ??? button-->
+ </div>
+<!-- Box layer below the gradient layer -->
+<div class="hud" id="loader"> <!--//this is the bar at the bottom-->
+    <a id="start-Button"><img src="Images/Microsoft.png" alt="start button">start</a> <!--//this is the start button in the corner-->
+</div>
+<a class="box-layer" id="bodder" style="color:black; font-size:12px; align-items: flex-start; z-index:1; font-family: Regular-font; font-size: 14px; width: 150px; height: 350px; top: 25px; left: 40%;">---------- 1. Added draggable windows ---------------- 2. Added chill music ------------ 3. start menu works ------------- 4. fixed bug with window overlap --------------- 5. Notepad was added</a><!--this is what I log stuff in-->
+<a class="gradient-layer" style="font-family: Regular-font; font-size: 8px; left: 40.2%; width:150px; height: 10px; color:white; z-index: 1;" id="kodder">Change log<img style="left: 92.5%;" src="Images/untitled.png" alt="Sample Image" class="ender"></a> <!--//change log-->
+
+<textarea type="text" id="fname" name="fname" class="box-layer" style="line-height:80%; height: 150px; width: 350px; color:white; font-size:12px; align-items: flex-start; vertical-align: text-top; z-index:1; left:60%;">
+    
+    
+</textarea> <!--text part of notepad-->
+
+<a class="gradient-layer" style="font-family: Regular-font; font-size: 8px; left: 60.3%; width:354px; height: 10px; color:white; z-index: 1;" id="iname">Notepad<img style="left: 96.8%;" src="Images/untitled.png" alt="Sample Image" class="ender"></a> <!--gradient top-->  
+
+<b class="movingBox" src="movingBox">
+<button id="Chill" class="toggle-audio" data-target="background-audio" type="button">Chill Music Button</button>
+<audio class="background-audio" loop>
+    <source src="Entites/1848354536 (1).mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+<button id="Chill2" class="toggle-audio" style="top: 100px" data-target="background-audio2" type="button">Neat music</button>
+<audio class="background-audio2" loop>
+    <source src="Extra/Valve Studio Orchestra - Jungle Inferno (more music from Team Fortress 2) - 02 Saxton's Dilemma.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+</b>
+<!-- Hidden iframe to display the index.html content -->
+<iframe id="myIframe" src="" width=100% height=100% frameborder="0" title="game"></iframe>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  const enderButtons = document.querySelectorAll(".ender");
+
+  enderButtons.forEach(function(button, index) {
+    button.addEventListener("click", function() {
+      console.log("Image button clicked");
+      // Hide the elements
+      const gradientLayer = document.querySelectorAll(".gradient-layer")[index];
+      const boxLayer = document.querySelectorAll(".box-layer")[index];
+
+      // Create a button in the "hud"
+      const hud = document.querySelector(".hud");
+
+      const toggleButton = document.createElement("button");
+      toggleButton.textContent = gradientLayer.innerText;
+      toggleButton.style.position = "absolute";
+      toggleButton.style.zIndex = "0";
+      toggleButton.style.top = "5%";
+      toggleButton.style.left = "10%";
+      toggleButton.style.width = "10%";
+      toggleButton.style.height = "95%";
+      toggleButton.style.backgroundColor = "rgba(222, 222, 222, 1)"; /* Light color */
+      toggleButton.style.border = "2px outset rgba(255, 255, 255, 1)";
+      toggleButton.style.cursor = "url('Images/select.png'), pointer";
+      toggleButton.style.whiteSpace = "nowrap";
+      toggleButton.style.marginLeft = `${index * 200}px`; // Adjust the margin based on index
+      toggleButton.style.overflow = "hidden";
+      toggleButton.style.textOverflow = "ellipsis"; // Ellipsis to indicate text overflow
+      toggleButton.style.textAlign = "center"; // Center text horizontally
+      toggleButton.style.display = "flex"; // Set display to flex
+      toggleButton.style.justifyContent = "center"; // Center content horizontally
+      hud.appendChild(toggleButton);
+
+      gradientLayer.classList.add("hidden");
+      boxLayer.classList.add("hidden");
+
+      // Add event listener to the toggle button
+      toggleButton.addEventListener("click", function() {
+        console.log("Toggle button clicked");
+        boxLayer.innerText = "failure"
+        // Toggle the visibility of elements
+        gradientLayer.classList.toggle("hidden");
+        boxLayer.classList.toggle("hidden");
+
+        // Remove the toggle button
+        toggleButton.remove();
+      });
+    });
+  });
+});
+
+var audioToggleButtons = document.querySelectorAll(".toggle-audio");
+
+// Define consoleCount outside the click event listener
+var consoleCount = {};
+
+audioToggleButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+    // Store the initial text content of each button
+    var initialText = button.innerText.trim(); // Trim to remove leading/trailing whitespace
+    var isInitialEnabled = initialText.toLowerCase().includes("enabled");
+        // Initialize consoleCount for each button if not exists
+        if (!consoleCount[button]) {
+            consoleCount[button] = 0;
+        }
+
+        var targetId = button.getAttribute("data-target");
+        var audio = document.querySelector("." + targetId);
+
+        if (!audio || isNaN(audio.duration) || audio.duration <= 0) {
+            if (consoleCount[button] >= 5) {
+                console.warn("Console message limit reached");
+                return; // Exit function if console message limit reached
+            }
+            console.warn("Audio not found or corrupted");
+            button.innerText = initialText.replace(" enabled", "").replace(" disabled", ""); // Revert button text to initial text
+            button.innerText += " was not found"
+            consoleCount[button]++;
+            return; // Exit function if audio is not valid
+        }
+
+        if (audio.paused) {
+            audio.play();
+            button.innerText = isInitialEnabled ? initialText.replace("enabled", "") : initialText.replace("disabled", "");
+            button.innerText += " enabled"; // Update button text
+        } else {
+            audio.pause();
+            button.innerText = initialText.replace(" enabled", "").replace(" disabled", ""); // Revert button text to initial text
+            button.innerText += " disabled"
+        }
+    });
+});
+
+
+
+</script>
+
+</body>
+</html>
