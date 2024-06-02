@@ -1,0 +1,196 @@
+@font-face {
+  font-family: Regular-font;
+  src: url(Fonts/pcsenior.ttf);
+  letter-spacing: 0px;
+  }
+  @font-face {
+  font-family: Display-font;
+  src: url(Fonts/novem___.ttf);
+  letter-spacing: 0px;
+  }
+  @media screen and (min-width: 800px) {
+  body {
+    cursor: url("Images\High\passive.png"), auto;
+  }
+  }
+  body {
+	cursor: url('Images/passive.png'), pointer;
+  }
+  .hidden { display: none; }
+  #actualButton {
+    right: 100%;
+    width: 133%;
+    height: 10%;
+    padding: 3px;
+    background-image: url('Images/Win1999.png'); /* Path to your image */
+    background-size: auto; /* Use the original size of the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: absolute; /* Center the image */
+    border-style: hidden;
+	image-rendering: pixelated;
+    cursor: url('Images/select.png'), pointer;
+  }
+  #actualButton:hover {
+    right: 100%;
+    width: 133%;
+    height: 10%;
+    padding: 3px;
+    background-image: url('Images/Win2000.png'); /* Path to your image */
+    background-size: auto; /* Use the original size of the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: absolute; /* Center the image */
+    border-style: hidden;
+	image-rendering: pixelated;
+    cursor: url('Images/select.png'), pointer;
+  }
+  /* Gradient styling */
+  .head {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      background-color:rgb(0, 128, 128);
+  }
+  .gradient-layer {
+    width: 250.5px;
+    height: 15px;
+    position: absolute;
+    font-family: Regular-font;
+    color: white;
+    font-size: 8px;
+    top: 27px;
+    left: 27px;
+    background: linear-gradient(to right, rgb(36, 73, 133), rgb(66, 135, 245));
+    z-index: 6; /* Ensure it's above the box */
+  }
+  .hud {
+    font-family: Regular-font;
+    font-size: 14px;
+    width: 100%;
+    height: 3%;
+    position: absolute;
+    top: 96.6%;
+    right: 0.01%;
+    z-index: 100; /* Place below the gradient */
+    background-color: rgba(222, 222, 222, 1); /* Light color */
+    border: 2px outset rgba(255, 255, 255, 1); /* Outset border style */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically and horizontally */
+    color: white; /* Text color */
+   }
+  /* Box styling */
+  .box-layer {
+    font-family: Regular-font;
+    font-size: 14px;
+    width: 250px;
+    height: 150px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 0;
+    background-color: rgba(158, 158, 158, 1); /* Light color */
+    border: 3px outset rgba(146, 146, 146, 1); /* Outset border style */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically and horizontally */
+    color: white; /* Text color */
+	}
+	.movingBox {
+		position: absolute;
+		z-index: 9;
+		top: 97%;
+		width: 80px;
+		height: 10px;
+		background-color: rgba(222, 222, 222, 1); /* Light color */
+		border: 2px outset rgba(255, 255, 255, 1); /* Outset border style */
+		cursor: url('Images/passive.png'), pointer;
+		transition: height 0.3s ease;
+	}
+	.movingBox Button {
+		position: absolute;
+		z-index: 0;
+		top: 5%;
+		left: 10%;
+		width: 80%;
+		height: 30%;
+		background-color: rgba(222, 222, 222, 1); /* Light color */
+		border: 2px outset rgba(255, 255, 255, 1); /* Outset border style */
+		cursor: url('Images/select.png'), pointer;
+	}
+	.movingBox.move-up {
+		height: 30%;
+		transform: translateY(-90%);
+	}
+	.hud a {
+    font-family: Regular-font;
+    font-size: 70%;
+    width: 5%;
+    height: 70%;
+    position: absolute;
+    left: 1%;
+    z-index: 9; /* Place below the gradient */
+    background-color: rgba(222, 222, 222, 1); /* Light color */
+    border: 1px outset rgba(255, 255, 255, 1); /* Outset border style */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically and horizontally */
+    color: black; /* Text color */
+	}
+	.boxer {
+    font-family: Regular-font;
+    font-size: 14px;
+    width: 150px;
+    height: 350px;
+    position: absolute;
+    top: 25px;
+    left: 40%;
+    z-index: 0;
+    background-color: rgba(158, 158, 158, 1); /* Light color */
+    border: 3px outset rgba(146, 146, 146, 1); /* Outset border style */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically and horizontally */
+    color: white; /* Text color */
+	}
+	.hud a:hover {
+	    border: 1px inset rgba(255, 255, 255, 1); /* Outset border style */
+	}
+	.hud a img {
+	    border: hidden;
+	    width: 25%;
+	    height: 70%;
+		z-index: 9;
+	}
+	.ender {
+	}
+	.changer {
+	}
+	.hud a:hover + .movingBox {
+		transform: translateY(-100px);
+	}
+  /* Image styling */
+  .gradient-layer img {
+    z-index: 6;
+    position: absolute;
+	image-rendering: pixelated;
+    max-width: 155%;
+    height: 100%;
+    top: 0px;
+    left: 234.5px;
+    cursor: url('Images/select.png'), pointer;
+  }
+  
+  /* iframe styling */
+  #myIframe {
+    z-index: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none; /* Initially hidden */
+	cursor: url('Images/Waiting.png'), auto;
+  }
