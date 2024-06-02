@@ -124,7 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   }
 
-
+    // For the actual button
+document.addEventListener('DOMContentLoaded', function() {
+  const actualButton = document.getElementById('actualButton');
+  actualButton.addEventListener('click', hideContentAndShowIframe);
+});
 
 </script>
 </head>
@@ -139,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
  <div class="box-layer" id="window"> <!--this is window -->
   Hello world
   <!-- Actual button to show the iframe -->
-  <div><button type="button" id="actualButton" onclick="hideContentAndShowIframe();">look at it</button></div> <!--//this is the ??? button-->
+  <div><button type="button" id="actualButton">look at it</button></div> <!--//this is the ??? button-->
  </div>
 <!-- Box layer below the gradient layer -->
 <div class="hud" id="loader"> <!--//this is the bar at the bottom-->
@@ -176,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function() {
   enderButtons.forEach(function(button, index) {
     button.addEventListener("click", function() {
       console.log("Image button clicked");
-      
       // Hide the elements
       const gradientLayer = document.querySelectorAll(".gradient-layer")[index];
       const boxLayer = document.querySelectorAll(".box-layer")[index];
@@ -205,50 +208,23 @@ document.addEventListener("DOMContentLoaded", function() {
       hud.appendChild(toggleButton);
 
       gradientLayer.classList.add("hidden");
-      boxLayer.style.display = "none"
+      boxLayer.classList.add("hidden");
 
       // Add event listener to the toggle button
       toggleButton.addEventListener("click", function() {
         console.log("Toggle button clicked");
-
+        boxLayer.innerText = "failure"
         // Toggle the visibility of elements
         gradientLayer.classList.toggle("hidden");
-        if (boxLayer.elemen !== "otherElement") {
-            boxLayer.style.display = "block"
-        } else {
-            boxLayer.style.display = "flex"
-        }
+        boxLayer.classList.toggle("hidden");
+
         // Remove the toggle button
         toggleButton.remove();
       });
     });
   });
 });
-function lockMouseCursor() {
-            const lockedArea = document.body
 
-            // Request pointer lock
-            lockedArea.requestPointerLock = lockedArea.requestPointerLock || lockedArea.mozRequestPointerLock || lockedArea.webkitRequestPointerLock;
-            lockedArea.requestPointerLock();
-            
-            // Hide cursor
-            document.body.style.cursor = 'none';
-
-            // Event listener for when the pointer lock is lost
-            document.addEventListener('pointerlockchange', lockChangeAlert, false);
-            document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
-            document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
-
-            function lockChangeAlert() {
-                if (document.pointerLockElement === lockedArea || document.mozPointerLockElement === lockedArea || document.webkitPointerLockElement === lockedArea) {
-                    console.log('Pointer locked');
-                } else {
-                    console.log('Pointer unlocked');
-                    // Show cursor
-                    document.body.style.cursor = 'auto';
-                }
-            }
-        }
 var audioToggleButtons = document.querySelectorAll(".toggle-audio");
 
 // Define consoleCount outside the click event listener
