@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Editor</title>
+  <style>
+    .language { 
+            position: absolute;
+			right:60%;
+			top:13%;
+			margin-top:-10px;
+			height:21px;
+			padding:0 1em;
+			text-align:right;
+			-webkit-appearance:none;
+			appearance:none;
+			border:none;
+			background:transparent;
+			font-family:Lato, sans-serif;
+			color:DimGrey;
+			
+			&:before{
+				content:'asd';
+			}
+			
+			&:hover{
+				background:rgba(0,0,0,0.1);
+			}
+		}
+	
+	
+	.window-body{
+		position:relative;
+		height:300px;
+		
+		.code-input, .code-output{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			padding:1rem;
+			border:none;
+			font-family:'PT Mono', monospace;
+			font-size:0.8rem;
+			background:transparent;
+			white-space:pre-wrap;
+			line-height:1.5em;
+			word-wrap: break-word;
+		}
+		
+		.code-input{
+			opacity:0.7;
+			margin:0;
+			color:#999;
+			resize:none;
+		}
+		
+		.code-output{
+			pointer-events:none;
+			z-index:3;
+			margin:0;
+			overflow-y:auto;
+			
+			code{
+				position:absolute;
+				top:0;
+				left:0;
+				margin:0;
+				padding:1rem;
+				display:block;
+				color:#666;
+				font-size:0.8rem;
+				font-family:'PT Mono', monospace;
+			}
+		}
+	}
+
+a.token{
+	text-decoration:none;
+}
+.token
+{
+	
+	&.selector, &.punctuation, &.keyword{
+		color:PaleVioletRed;
+	}
+	
+	&.property, &.number, &.string, &.punctuation, &.tag-id{
+		color:DodgerBlue;
+	}
+	
+	&.function, &.attr-name{
+		color:CadetBlue;
+	}
+	
+	&.atrule{
+		.atrule-id{
+			color:BlueViolet;	
+		}
+	}
+	
+	&.boolean{
+		color:LightSlateGray;
+	}
+	
+	&.comment{
+		color:DarkGrey;
+	}
+}
+
+.language-php{
+	.variable{
+		color:CadetBlue;
+	}
+}
+  </style>
+</head>
+<body>
+
+<main class="view">
+  <h1 class="title">
+    Code Editor
+    <small>With syntax highlighting</small>
+  </h1>
+  <div class="window">
+    <div class="window-header">
+      <div class="action-buttons"></div>
+      <select class="language">
+        <option value="javascript" selected>JavaScript</option>
+        <option value="markup">HTML</option>
+        <option value="php">PHP</option>
+      </select>
+      <button id="saveButton">Save</button>
+      <button id="saveAsButton">Save As</button>
+      <button id="openButton">Open</button>
+    </div>
+    <div class="window-body">
+      <textarea id="textArea" class="code-input" placeholder="// Switch the language and put some code on me :)"></textarea>
+      <pre class="code-output">
+        <code class="language-javascript">
+          
+        </code>
+      </pre>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+<script>
+  ;var MicroCode = (function(){
+    return {
+      init: function(inputSel, outputSel, languageSel){
+        this.focusInput(inputSel);
+        this.listenForInput(inputSel);
+        this.listenForLanguage(languageSel, '.code-output', inputSel);
+        this.renderOutput(outputSel, $(inputSel)[0].value);
+        this.listenerForScroll(inputSel, outputSel);
+        this.setupFileButtons();
+      },
+      
+      listenForInput: function(inputSel){
+        var self = this;
+
+        $(inputSel).on('input keydown', function(key){
+          var input = this,
+              selStartPos = input.selectionStart,
+              inputVal = input.value;
+
+          if(key.keyCode === 9){
+            input.value = inputVal.substring(0, selStartPos) + "    " + inputVal.substring(selStartPos, input.value.length);
+            input.selectionStart = selStartPos + 4;
+            input.selectionEnd = selStartPos + 4;
+            key.preventDefault();
+          }
+
+          self.renderOutput('.code-output', this.value);
+        });
+
+        Prism.highlightAll();
+      },
+      
+      listenForLanguage: function(languageSel, outputSel, inputSel){
+        var self = this;
+        $(languageSel).on('change', function(){
+          $('code', outputSel)
+            .removeClass()
+            .addClass('language-' + this.value)
+            .removeAttr('data-language');
+          
+          $(outputSel)
+            .removeClass()
+            .addClass('code-output language-' + this.value);
+          
+          $(inputSel)
+            .val('');
+          
+          $('code', outputSel)
+            .html('');
+          
+          self.focusInput(inputSel);
+        });
+      },
+      
+      listenerForScroll: function(inputSel, outputSel){
+        $(inputSel).on('scroll', function(){
+          //console.log(this.scrollTop);
+          $(outputSel)[0].scrollTop = this.scrollTop;
+        });
+      },
+      
+      renderOutput: function(outputSel, value){
+        $('code', outputSel)
+          .html(value.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;") + "\n");
+        
+        Prism.highlightAll();
+      },
+      
+      focusInput: function(inputSel){
+        var input = $(inputSel);
+        
+        input.focus();
+        
+        input[0].selectionStart = input[0].value.length;
+        input[0].selectionEnd = input[0].value.length;
+      },
+
+      setupFileButtons: function() {
+        let fileHandle;
+
+        async function writeFile(fileHandle, contents) {
+          if (fileHandle.createWriter) {
+            const writer = await fileHandle.createWriter();
+            await writer.write(0, contents);
+            await writer.close();
+            return;
+          }
+          const writable = await fileHandle.createWritable();
+          await writable.write(contents);
+          await writable.close();
+        }
+
+        async function getFileHandle() {
+          const options = {
+            types: [
+              {
+                description: 'Text Files',
+                accept: {
+                  'text/plain': ['.txt'],
+                },
+              },
+              {
+              description: 'Python Files',
+                accept: {
+                  'text/python': ['.py'],
+                },
+            },
+            {
+              description: 'Html Files',
+                accept: {
+                  'text/html': ['.html'],
+                },
+            },
+            {
+              description: 'Css Files',
+                accept: {
+                  'text/css': ['.css'],
+                },
+            },
+            {
+              description: 'Javascript Files',
+                accept: {
+                  'text/javascript': ['.js'],
+                },
+            }
+            ],
+          };
+          const [fileHandle] = await window.showOpenFilePicker(options);
+          return fileHandle;
+        }
+
+        document.getElementById('saveButton').addEventListener('click', async () => {
+          if (!fileHandle) {
+            fileHandle = await window.showSaveFilePicker({
+              suggestedName: 'untitled.txt',
+              types: [{
+                description: 'Text Files',
+                accept: {'text/plain': ['.txt']},
+              }],
+            });
+          }
+          const contents = document.getElementById('textArea').value;
+          await writeFile(fileHandle, contents);
+        });
+
+        document.getElementById('saveAsButton').addEventListener('click', async () => {
+          fileHandle = await window.showSaveFilePicker({
+            suggestedName: 'untitled.txt',
+            types: [{
+              description: 'Text Files',
+              accept: {'text/plain': ['.txt']},
+            }],
+          });
+          const contents = document.getElementById('textArea').value;
+          await writeFile(fileHandle, contents);
+        });
+
+        document.getElementById('openButton').addEventListener('click', async () => {
+          fileHandle = await getFileHandle();
+          const file = await fileHandle.getFile();
+          const contents = await file.text();
+          document.getElementById('textArea').value = contents;
+        });
+      }
+    }
+  })();
+
+  MicroCode.init('.code-input', '.code-output', '.language');
+</script>
+
+</body>
+</html>
