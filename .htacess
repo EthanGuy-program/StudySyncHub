@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{ionos} ^studysyncvault.com [NC]
+RewriteRule ^(.*)$ https://www.studysyncvault.com/ [L,R=301]
