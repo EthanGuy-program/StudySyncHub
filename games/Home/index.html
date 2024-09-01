@@ -5,8 +5,7 @@
 <title>do you remember?</title>
 <link rel="icon" type="image/x-icon" href="icon.ico" id="icono">
 <link rel="stylesheet" type="text/css" href='Styles.css'>
-<script>
-</script>
+<script src="./script.js"></script>
 </head>
 <body>
 <a class="head"><a>
@@ -50,127 +49,6 @@
 <!-- Hidden iframe to display the index.html content -->
 <iframe id="myIframe" src="" width=100% height=100% frameborder="0" title="game"></iframe>
 <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-  const enderButtons = document.querySelectorAll(".ender");
-
-  enderButtons.forEach(function(button, index) {
-    button.addEventListener("click", function() {
-      console.log("Image button clicked");
-      
-      // Hide the elements
-      const gradientLayer = document.querySelectorAll(".gradient-layer")[index];
-      const boxLayer = document.querySelectorAll(".box-layer")[index];
-
-      // Create a button in the "hud"
-      const hud = document.querySelector(".hud");
-
-      const toggleButton = document.createElement("button");
-      toggleButton.textContent = gradientLayer.innerText;
-      toggleButton.style.position = "absolute";
-      toggleButton.style.zIndex = "0";
-      toggleButton.style.top = "5%";
-      toggleButton.style.left = "10%";
-      toggleButton.style.width = "10%";
-      toggleButton.style.height = "95%";
-      toggleButton.style.backgroundColor = "rgba(222, 222, 222, 1)"; /* Light color */
-      toggleButton.style.border = "2px outset rgba(255, 255, 255, 1)";
-      toggleButton.style.cursor = "url('Images/select.png'), pointer";
-      toggleButton.style.whiteSpace = "nowrap";
-      toggleButton.style.marginLeft = `${index * 200}px`; // Adjust the margin based on index
-      toggleButton.style.overflow = "hidden";
-      toggleButton.style.textOverflow = "ellipsis"; // Ellipsis to indicate text overflow
-      toggleButton.style.textAlign = "center"; // Center text horizontally
-      toggleButton.style.display = "flex"; // Set display to flex
-      toggleButton.style.justifyContent = "center"; // Center content horizontally
-      hud.appendChild(toggleButton);
-
-      gradientLayer.classList.add("hidden");
-      boxLayer.style.display = "none"
-
-      // Add event listener to the toggle button
-      toggleButton.addEventListener("click", function() {
-        console.log("Toggle button clicked");
-
-        // Toggle the visibility of elements
-        gradientLayer.classList.toggle("hidden");
-        if (boxLayer.elemen !== "otherElement") {
-            boxLayer.style.display = "block"
-        } else {
-            boxLayer.style.display = "flex"
-        }
-        // Remove the toggle button
-        toggleButton.remove();
-      });
-    });
-  });
-});
-function lockMouseCursor() {
-            const lockedArea = document.body
-
-            // Request pointer lock
-            lockedArea.requestPointerLock = lockedArea.requestPointerLock || lockedArea.mozRequestPointerLock || lockedArea.webkitRequestPointerLock;
-            lockedArea.requestPointerLock();
-            
-            // Hide cursor
-            document.body.style.cursor = 'none';
-
-            // Event listener for when the pointer lock is lost
-            document.addEventListener('pointerlockchange', lockChangeAlert, false);
-            document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
-            document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
-
-            function lockChangeAlert() {
-                if (document.pointerLockElement === lockedArea || document.mozPointerLockElement === lockedArea || document.webkitPointerLockElement === lockedArea) {
-                    console.log('Pointer locked');
-                } else {
-                    console.log('Pointer unlocked');
-                    // Show cursor
-                    document.body.style.cursor = 'auto';
-                }
-            }
-        }
-var audioToggleButtons = document.querySelectorAll(".toggle-audio");
-
-// Define consoleCount outside the click event listener
-var consoleCount = {};
-
-audioToggleButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-    // Store the initial text content of each button
-    var initialText = button.innerText.trim(); // Trim to remove leading/trailing whitespace
-    var isInitialEnabled = initialText.toLowerCase().includes("enabled");
-        // Initialize consoleCount for each button if not exists
-        if (!consoleCount[button]) {
-            consoleCount[button] = 0;
-        }
-
-        var targetId = button.getAttribute("data-target");
-        var audio = document.querySelector("." + targetId);
-
-        if (!audio || isNaN(audio.duration) || audio.duration <= 0) {
-            if (consoleCount[button] >= 5) {
-                console.warn("Console message limit reached");
-                return; // Exit function if console message limit reached
-            }
-            console.warn("Audio not found or corrupted");
-            button.innerText = initialText.replace(" enabled", "").replace(" disabled", ""); // Revert button text to initial text
-            button.innerText += " was not found"
-            consoleCount[button]++;
-            return; // Exit function if audio is not valid
-        }
-
-        if (audio.paused) {
-            audio.play();
-            button.innerText = isInitialEnabled ? initialText.replace("enabled", "") : initialText.replace("disabled", "");
-            button.innerText += " enabled"; // Update button text
-        } else {
-            audio.pause();
-            button.innerText = initialText.replace(" enabled", "").replace(" disabled", ""); // Revert button text to initial text
-            button.innerText += " disabled"
-        }
-    });
-});
-
 
 
 </script>
