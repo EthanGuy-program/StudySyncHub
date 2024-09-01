@@ -11,11 +11,10 @@
   @media screen and (min-width: 800px) {
   body {
     cursor: url("Images\High\passive.png"), auto;
+    cursor: url('Images/passive.png'), pointer;
   }
   }
-  body {
-	cursor: url('Images/passive.png'), pointer;
-  }
+
   .hidden { display: none; }
   #actualButton {
     right: 100%;
@@ -64,6 +63,7 @@
     background: linear-gradient(to right, rgb(36, 73, 133), rgb(66, 135, 245));
     z-index: 6; /* Ensure it's above the box */
   }
+
   .hud {
     font-family: Regular-font;
     font-size: 14px;
@@ -193,4 +193,7 @@
     border: none;
     display: none; /* Initially hidden */
 	cursor: url('Images/Waiting.png'), auto;
+  }
+  #bodder {
+    color:black; font-size:12px; align-items: flex-start; z-index:1; font-family: Regular-font; font-size: 14px; width: 150px; height: 350px; top: 25px; left: 40%;
   }
