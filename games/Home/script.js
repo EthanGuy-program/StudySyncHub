@@ -1,6 +1,7 @@
 
 // JavaScript
 function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
+  window.onload = function() {
     const draggedElement = document.getElementById(draggedElementId);
     const referenceElement = document.getElementById(referenceElementId);
   
@@ -44,6 +45,7 @@ function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
   
     referenceElement.addEventListener('mousedown', handleMouseDown);
     draggedElement.addEventListener('mousedown', handleMouseDown);
+  }
   }
   
   // Example usage:
