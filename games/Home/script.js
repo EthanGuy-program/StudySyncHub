@@ -47,10 +47,34 @@ function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
     draggedElement.addEventListener('mousedown', handleMouseDown);
   }
   }
+  function setupButtonListeners(buttonSelector, actions) {
+    const buttons = document.querySelectorAll(buttonSelector);
   
+    buttons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            console.log("Button clicked");
+
+            actions.forEach(function(action) {
+                if (action.element) {
+                    document.querySelector(action.element).style.display = action.display;
+                }
+                if (action.attribute) {
+                    document.getElementById(action.attribute.id).href = action.attribute.value;
+                }
+            });
+        });
+    });
+}
+
   // Example usage:
   // or
   // makeElementsDraggable("window", "otherElement", 'separate');
+  // or
+  //  setupButtonListeners(".ender", [
+  //    { element: ".gradient-layer", display: "none" },
+  //    { element: ".box-layer", display: "none" },
+  //    { attribute: { id: "icono", value: "Images/icon-2.ico" } }
+  //  ]);
   
   
   
@@ -66,49 +90,27 @@ function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
     const movingBox = document.querySelector('.movingBox');
     let isBoxUp = false;
     document.getElementById('Chill').style.fontSize = '0px'
-    const enderButtons11 = document.querySelectorAll(".ender");
   
-    enderButtons11.forEach(function(button) {
-      button.addEventListener("click", function() {
-        console.log("Image button clicked");
+  // First set of buttons
+  setupButtonListeners(".ender", [
+      { element: ".gradient-layer", display: "none" },
+      { element: ".box-layer", display: "none" },
+      { attribute: { id: "icono", value: "Images/icon-2.ico" } }
+  ]);
   
-        const gradientLayer = document.querySelector(".gradient-layer");
-        const boxLayer = document.querySelector(".box-layer");
+  // Second set of buttons
+  setupButtonListeners(".changer", [
+      { element: "#kodder", display: "none" },
+      { element: ".boxer", display: "none" }
+  ]);
   
-        document.getElementById("icono").href = "Images/icon-2.ico";
+  // Third set of buttons
+  setupButtonListeners(".window-ender", [
+      { element: "#gameElement", display: "none" },
+      { element: "#game-window", display: "none" },
+      { attribute: { id: "icono", value: "Images/icon-2.ico" } }
+  ]);
   
-        gradientLayer.style.display = "none";
-        boxLayer.style.display = "none";
-      });
-    });
-        const enderButtons22 = document.querySelectorAll(".changer");
-  
-    enderButtons22.forEach(function(button) {
-      button.addEventListener("click", function() {
-        console.log("Image button clicked");
-  
-        const othexLayer = document.getElementById("kodder");
-        const boxerLayer = document.querySelector(".boxer");
-  
-        othexLayer.style.display = "none";
-        boxerLayer.style.display = "none";
-      });
-    });
-    const enderButtons33 = document.querySelectorAll(".window-ender");
-  
-    enderButtons33.forEach(function(button) {
-      button.addEventListener("click", function() {
-        console.log("Image button clicked");
-  
-        const gradientLayer = document.querySelector("#gameElement");
-        const boxLayer = document.querySelector("#game-window");
-  
-        document.getElementById("icono").href = "Images/icon-2.ico";
-  
-        gradientLayer.style.display = "none";
-        boxLayer.style.display = "none";
-      });
-    });
     // Select the audio toggle button
     var audioToggleButton = document.querySelector('.toggle-audio');
 
