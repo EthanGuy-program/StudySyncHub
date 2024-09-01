@@ -1,3 +1,4 @@
+
 // JavaScript
 function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
     const draggedElement = document.getElementById(draggedElementId);
@@ -63,7 +64,70 @@ function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
     const movingBox = document.querySelector('.movingBox');
     let isBoxUp = false;
     document.getElementById('Chill').style.fontSize = '0px'
+    const enderButtons11 = document.querySelectorAll(".ender");
   
+    enderButtons11.forEach(function(button) {
+      button.addEventListener("click", function() {
+        console.log("Image button clicked");
+  
+        const gradientLayer = document.querySelector(".gradient-layer");
+        const boxLayer = document.querySelector(".box-layer");
+  
+        document.getElementById("icono").href = "Images/icon-2.ico";
+  
+        gradientLayer.style.display = "none";
+        boxLayer.style.display = "none";
+      });
+    });
+        const enderButtons22 = document.querySelectorAll(".changer");
+  
+    enderButtons22.forEach(function(button) {
+      button.addEventListener("click", function() {
+        console.log("Image button clicked");
+  
+        const othexLayer = document.getElementById("kodder");
+        const boxerLayer = document.querySelector(".boxer");
+  
+        othexLayer.style.display = "none";
+        boxerLayer.style.display = "none";
+      });
+    });
+    const enderButtons33 = document.querySelectorAll(".window-ender");
+  
+    enderButtons33.forEach(function(button) {
+      button.addEventListener("click", function() {
+        console.log("Image button clicked");
+  
+        const gradientLayer = document.querySelector("#gameElement");
+        const boxLayer = document.querySelector("#game-window");
+  
+        document.getElementById("icono").href = "Images/icon-2.ico";
+  
+        gradientLayer.style.display = "none";
+        boxLayer.style.display = "none";
+      });
+    });
+    // Select the audio toggle button
+    var audioToggleButton = document.querySelector('.toggle-audio');
+
+    // Add click event listener to the audio toggle button
+    audioToggleButton.addEventListener("click", function() {
+        // Get the target ID from the button's data-target attribute
+        var targetId = audioToggleButton.getAttribute("data-target");
+        // Select the audio element using the target ID
+        var audio = document.querySelector("." + targetId);
+
+        // Check if the audio is paused
+        if (audio.paused) {
+            // If paused, play the audio
+            audio.play();
+            audioToggleButton.innerText = "Chill Music enabled";
+        } else {
+            // If playing, pause the audio
+            audio.pause();
+            audioToggleButton.innerText = "Chill Music disabled";
+        }
+    });
     function toggleMoveUp() {
       isBoxUp = !isBoxUp;
       movingBox.classList.toggle('move-up', isBoxUp);
@@ -120,78 +184,7 @@ function makeElementsDraggable(draggedElementId, referenceElementId, behavior) {
     }
   
       // For the actual button
-document.addEventListener("DOMContentLoaded", function() {
-    const enderButtons = document.querySelectorAll(".ender");
-  
-    enderButtons.forEach(function(button) {
-      button.addEventListener("click", function() {
-        console.log("Image button clicked");
-  
-        const gradientLayer = document.querySelector(".gradient-layer");
-        const boxLayer = document.querySelector(".box-layer");
-  
-        document.getElementById("icono").href = "Images/icon-2.ico";
-  
-        gradientLayer.style.display = "none";
-        boxLayer.style.display = "none";
-      });
-    });
-  });
-  document.addEventListener("DOMContentLoaded", function() {
-    const enderButtons = document.querySelectorAll(".window-ender");
-  
-    enderButtons.forEach(function(button) {
-      button.addEventListener("click", function() {
-        console.log("Image button clicked");
-  
-        const gradientLayer = document.querySelector("#gameElement");
-        const boxLayer = document.querySelector("#game-window");
-  
-        document.getElementById("icono").href = "Images/icon-2.ico";
-  
-        gradientLayer.style.display = "none";
-        boxLayer.style.display = "none";
-      });
-    });
-  });
-  document.addEventListener("DOMContentLoaded", function() {
-    const enderButtons = document.querySelectorAll(".changer");
-  
-    enderButtons.forEach(function(button) {
-      button.addEventListener("click", function() {
-        console.log("Image button clicked");
-  
-        const othexLayer = document.getElementById("kodder");
-        const boxerLayer = document.querySelector(".boxer");
-  
-        othexLayer.style.display = "none";
-        boxerLayer.style.display = "none";
-      });
-    });
-  });
-  document.addEventListener('DOMContentLoaded', function() {
-    // Select the audio toggle button
-    var audioToggleButton = document.querySelector('.toggle-audio');
 
-    // Add click event listener to the audio toggle button
-    audioToggleButton.addEventListener("click", function() {
-        // Get the target ID from the button's data-target attribute
-        var targetId = audioToggleButton.getAttribute("data-target");
-        // Select the audio element using the target ID
-        var audio = document.querySelector("." + targetId);
-
-        // Check if the audio is paused
-        if (audio.paused) {
-            // If paused, play the audio
-            audio.play();
-            audioToggleButton.innerText = "Chill Music enabled";
-        } else {
-            // If playing, pause the audio
-            audio.pause();
-            audioToggleButton.innerText = "Chill Music disabled";
-        }
-    });
-});
 
       // Connect to the QWebChannel
 // JavaScript
