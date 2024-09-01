@@ -143,6 +143,13 @@
                 currentIndex = (currentIndex - 1 + cards.length) % (cards.length);
                 updateCarousel();
             }
+            if (e.key === 'A') {
+                currentIndex = (currentIndex + 1) % (cards.length);
+                updateCarousel();
+            } else if (e.key === 'D') {
+                currentIndex = (currentIndex - 1 + cards.length) % (cards.length);
+                updateCarousel();
+            }
         });
 
         cards.forEach((card, index) => {
