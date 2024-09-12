@@ -80,16 +80,20 @@ dropdowns.forEach(dropdown => {
     dropdownContent.className = 'dropdown-content';
 
     links.forEach(link => {
-        // Try to extract the text after the dropdown text reference
-        const extractedText = link.split(`/${dropdownText}/`)[1]?.replace(/\/$/, '');
+        // Create a URL object to easily extract parts of the URL
+        const url = new URL(link);
+        const pathSegments = url.pathname.split('/').filter(Boolean);
+        
+        // Find the segment after the dropdown text
+        const segmentAfterText = pathSegments.slice(pathSegments.indexOf(dropdownText) + 1).join('/');
 
         // Create a link element
         const linkElement = document.createElement('a');
         linkElement.href = link;
         linkElement.target = '_blank';
         
-        // Set link text to extracted text or fallback to full link
-        linkElement.textContent = extractedText || link;
+        // Set link text to the segment after the dropdown text or fallback to full URL
+        linkElement.textContent = segmentAfterText || link;
 
         // Append the link to the dropdown content
         dropdownContent.appendChild(linkElement);
