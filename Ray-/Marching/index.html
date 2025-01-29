@@ -165,7 +165,7 @@ void main() {
     float fadeFactor = (u_time / max(u_time, 20.0));
 
     // Bloom effect scales with fade-in
-    vec3 bloomColor = mix(color, vec3(1.0), u_emissionColor * 0.2 * fadeFactor);
+    vec3 bloomColor = mix(color, vec3(1.0), u_emissionColor * 0.5 * fadeFactor);
 
     fragColor = vec4(bloomColor * fadeFactor, 1.0);
 }
