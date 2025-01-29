@@ -169,6 +169,11 @@ function getRotationMatrix(yaw, pitch) {
         -sinYaw * cosPitch, sinPitch, cosYaw * cosPitch
     ]);
 }
+if (Math.abs(cameraDirection[1]) > 0.999) {
+    vec3.cross(right, [0, 0, 1], forward); // Avoid singularity
+} else {
+    vec3.cross(right, [0, 1, 0], forward);
+}
 
 
 // Resize the canvas to fit the display size
