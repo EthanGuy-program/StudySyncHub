@@ -170,10 +170,13 @@ function getRotationMatrix(yaw, pitch) {
     ]);
 }
 if (Math.abs(cameraDirection[1]) > 0.999) {
-    vec3.cross(right, [0, 0, 1], forward); // Avoid singularity
+    // If camera is pointing exactly up or down, use [1, 0, 0] as the right vector
+    vec3.cross(right, [1, 0, 0], forward);
 } else {
+    // Otherwise, calculate as usual
     vec3.cross(right, [0, 1, 0], forward);
 }
+
 
 
 // Resize the canvas to fit the display size
