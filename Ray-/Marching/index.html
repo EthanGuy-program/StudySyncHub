@@ -85,10 +85,17 @@ float boxSDF(vec3 p, vec3 b) {
 }
 
 // Map function to repeat the box in the x and z directions
+// Properly aligned box SDF
 float map(vec3 p) {
-    vec3 q = vec3(mod(p.x, 2.0) - 1.0, p.y, mod(p.z, 2.0) - 1.0);
-    return boxSDF(q, vec3(0.5, 0.5, 0.5)); // Box size
+    vec3 q = p;
+    
+    // Snap to a strict 2x2 grid
+    q.x = round(p.x / 2.0) * 2.0;
+    q.z = round(p.z / 2.0) * 2.0;
+
+    return boxSDF(p - q, vec3(0.5, 0.5, 0.5)); // Box size remains the same
 }
+
 
 // Calculate normal using central difference
 vec3 getNormal(vec3 p) {
