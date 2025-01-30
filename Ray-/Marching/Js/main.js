@@ -247,7 +247,7 @@ function eulerToRotationMatrix(yaw, pitch, roll) {
 }
 
 function updateCameraPosition(cameraPosition, cameraOrientation) {
-    if(keysPressed) {
+    if (keysPressed) {
         if (Object.values(keysPressed).includes(true)) {
             const moveAmount = keysPressed.Shift ? 0.2 : 0.1;
             console.log('Initial cameraPosition:', cameraPosition);
