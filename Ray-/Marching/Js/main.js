@@ -65,6 +65,28 @@ function UnityProgress(dom) {
     this.Update();
 }
 
+// Event listeners for key presses and releases
+window.addEventListener('keydown', (event) => {
+    keysPressed[event.key] = true;
+    console.log('Key down:', event.key);
+});
+
+window.addEventListener('keyup', (event) => {
+    keysPressed[event.key] = false;
+    console.log('Key up:', event.key);
+});
+
+// Event listeners for mouse movement
+canvas.addEventListener('mousedown', (event) => {
+    isMouseDown = true;
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
+});
+
+canvas.addEventListener('mouseup', () => {
+    isMouseDown = false;
+});
+
 // Initialization function
 function init() {
     const progress = new UnityProgress(document.getElementById('loadingBox'));
@@ -276,28 +298,6 @@ function updateCameraPosition(cameraPosition, cameraOrientation) {
         }
     }
 }
-
-// Event listeners for key presses and releases
-window.addEventListener('keydown', (event) => {
-    keysPressed[event.key] = true;
-    console.log('Key down:', event.key);
-});
-
-window.addEventListener('keyup', (event) => {
-    keysPressed[event.key] = false;
-    console.log('Key up:', event.key);
-});
-
-// Event listeners for mouse movement
-canvas.addEventListener('mousedown', (event) => {
-    isMouseDown = true;
-    lastMouseX = event.clientX;
-    lastMouseY = event.clientY;
-});
-
-canvas.addEventListener('mouseup', () => {
-    isMouseDown = false;
-});
 
 canvas.addEventListener('mousemove', (event) => {
     if (!isMouseDown) return;
