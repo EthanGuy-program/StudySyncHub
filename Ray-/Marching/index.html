@@ -163,17 +163,23 @@ vec3 raymarch(vec3 ro, vec3 rd) {
 
 void main() {
     vec2 uv = (gl_FragCoord.xy / u_resolution) * 2.0 - 1.0;
+    
+    // Adjust for aspect ratio
+    float aspect = u_resolution.x / u_resolution.y;
+    uv.x *= aspect;
+
+    // Define camera properties
+    float fov = 1.0; // Field of view (adjust as needed)
     vec3 ro = u_cameraPosition;
-    vec3 rd = normalize(u_cameraOrientation * vec3(uv, 1.0));
+    vec3 rd = normalize(u_cameraOrientation * vec3(uv, fov)); // Perspective projection
 
     vec3 color = raymarch(ro, rd);
 
     // Fade-in effect
     float fadeFactor = (u_time / max(u_time, 10.0));
 
-    // Bloom effect scales with fade-in
+    // Bloom effect
     vec3 bloomColor = mix(color, vec3(1.0), u_emissionColor * 0.5);
-
     fragColor = vec4(bloomColor * fadeFactor, 1.0);
 }
 

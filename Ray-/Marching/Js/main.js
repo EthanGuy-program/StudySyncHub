@@ -199,21 +199,21 @@ function getRotationMatrix(yaw, pitch) {
     const cosPitch = Math.cos(pitch);
     const sinPitch = Math.sin(pitch);
 
-    // Create a rotation matrix for yaw (around Y-axis)
+    // Yaw rotation (around Y-axis)
     const yawMatrix = [
-        cosYaw, 0, -sinYaw,
-        0, 1, 0,
-        sinYaw, 0, cosYaw
+        cosYaw,  0, sinYaw,
+        0,       1, 0,
+        -sinYaw, 0, cosYaw
     ];
 
-    // Create a rotation matrix for pitch (around X-axis)
+    // Pitch rotation (around X-axis)
     const pitchMatrix = [
-        1, 0, 0,
-        0, cosPitch, sinPitch,
-        0, -sinPitch, cosPitch
+        1, 0,        0,
+        0, cosPitch, -sinPitch,
+        0, sinPitch, cosPitch
     ];
 
-    // Combine yaw and pitch rotations
+    // Combine rotations: yaw * pitch
     const rotationMatrix = [
         yawMatrix[0] * pitchMatrix[0] + yawMatrix[1] * pitchMatrix[3] + yawMatrix[2] * pitchMatrix[6],
         yawMatrix[0] * pitchMatrix[1] + yawMatrix[1] * pitchMatrix[4] + yawMatrix[2] * pitchMatrix[7],
