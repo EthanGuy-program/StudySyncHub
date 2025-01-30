@@ -1,3 +1,14 @@
+// Initialize key states
+const keysPressed = {
+    w: false,
+    a: false,
+    s: false,
+    d: false,
+    e: false,
+    q: false,
+    Shift: false
+};
+
 const canvas = document.getElementById('webgl-canvas');
 const gl = canvas.getContext('webgl2');
 let cameraPosition = [0, 5, -5];
@@ -9,17 +20,6 @@ let lastTime = 0; // For delta time
 let isMouseDown = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
-
-// Initialize key states
-const keysPressed = {
-    w: false,
-    a: false,
-    s: false,
-    d: false,
-    e: false,
-    q: false,
-    Shift: false
-};
 
 if (!gl) {
     console.error('WebGL 2.0 is not supported');
