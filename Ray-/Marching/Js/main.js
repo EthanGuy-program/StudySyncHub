@@ -89,7 +89,22 @@ class UnityProgress {
         document.getElementById("loadingInfo").textContent = this.message;
     }
 }
-
+// Declare simulateLoading before init
+function simulateLoading(progress, program) {
+    let progressValue = 0;
+    const interval = setInterval(() => {
+        progressValue += 0.1;
+        progress.SetProgress(progressValue);
+        if (progressValue >= 1) {
+            clearInterval(interval);
+            progress.SetMessage("Complete");
+            setTimeout(() => {
+                progress.Clear();
+                render(gl, program);
+            }, 500);
+        }
+    }, 500);
+}
 // Initialize the application
 function init() {
     setupEventListeners(); // Set up input handling
