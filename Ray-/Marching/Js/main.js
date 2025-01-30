@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById('webgl-canvas');
 const gl = canvas.getContext('webgl2');
 let cameraPosition = [0, 5, -5];
@@ -54,6 +53,7 @@ function UnityProgress(dom) {
 
     this.Update();
 }
+
 // Initialization function
 function init() {
     const progress = new UnityProgress(document.getElementById('loadingBox'));
@@ -72,6 +72,7 @@ function init() {
             }
         }, 500); // Adjust the speed of the progress simulation
     }
+
     const program = initializeShaders(gl);
     if (!program) return;
     
@@ -81,11 +82,11 @@ function init() {
         console.error('WebGL 2.0 is not supported');
         return;
     }
-    simulateLoading();
-    
-}
-init();
 
+    simulateLoading();
+}
+
+init();
 
 // Function to get shader source from HTML element
 function getShaderSource(id) {
@@ -169,15 +170,6 @@ function getRotationMatrix(yaw, pitch) {
         -sinYaw * cosPitch, sinPitch, cosYaw * cosPitch
     ]);
 }
-if (Math.abs(cameraDirection[1]) > 0.999) {
-    // If camera is pointing exactly up or down, use [1, 0, 0] as the right vector
-    vec3.cross(right, [1, 0, 0], forward);
-} else {
-    // Otherwise, calculate as usual
-    vec3.cross(right, [0, 1, 0], forward);
-}
-
-
 
 // Resize the canvas to fit the display size
 function resizeCanvasToDisplaySize() {
@@ -194,7 +186,6 @@ function resizeCanvasToDisplaySize() {
     }
     return false; // Indicate that the canvas size remains unchanged
 }
-
 
 // Initialize key states
 const keysPressed = {
@@ -284,8 +275,6 @@ function updateCameraPosition(cameraPosition, cameraOrientation) {
     }
 }
 
-
-
 // Event listeners for key presses and releases
 window.addEventListener('keydown', (event) => {
     keysPressed[event.key] = true;
@@ -324,15 +313,18 @@ canvas.addEventListener('mousemove', (event) => {
     lastMouseX = event.clientX;
     lastMouseY = event.clientY;
 });
+
 function isValidNumber(value) {
     return typeof value === 'number' && isFinite(value);
 }
+
 function checkWebGLError(gl) {
     const error = gl.getError();
     if (error !== gl.NO_ERROR) {
         console.error('WebGL Error:', error);
     }
 }
+
 // Update uniforms with current values
 function updateUniforms(gl, program) {
     const now = performance.now() / 1000;
@@ -412,7 +404,7 @@ function render(gl, program) {
     gl.viewport(0, 0, canvas.width, canvas.height); // Set viewport to match canvas dimensions
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear the canvas for the new frame
 
-    updateCameraPosition(cameraPosition, cameraOrientation)
+    updateCameraPosition(cameraPosition, cameraOrientation);
 
     updateUniforms(gl, program); // Update uniforms with current camera position and orientation
 
@@ -420,8 +412,6 @@ function render(gl, program) {
 
     requestAnimationFrame(() => render(gl, program)); // Loop the render function
 }
-
-
 
 // Gyroscope setup
 function handleOrientation(event) {
@@ -438,7 +428,6 @@ function handleOrientation(event) {
     yaw = gammaRad; // Yaw (rotation around Y-axis)
     pitch = betaRad; // Pitch (rotation around X-axis)
 }
-
 
 // Initialize gyroscope controls
 if (window.DeviceOrientationEvent) {
