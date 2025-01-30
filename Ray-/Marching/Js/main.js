@@ -1,4 +1,4 @@
-// Declare keysPressed at the top of the script
+// Declare keysPressed at the top
 const keysPressed = {
     w: false,
     a: false,
@@ -9,36 +9,64 @@ const keysPressed = {
     Shift: false
 };
 
+// Initialize WebGL and canvas first
 const canvas = document.getElementById('webgl-canvas');
 const gl = canvas.getContext('webgl2');
-let cameraPosition = [0, 5, -5];
-let cameraOrientation = [0, 0, 0]; // Initialize with default values
-
-let yaw = 0; // Yaw rotation angle
-let pitch = 0; // Pitch rotation angle
-let lastTime = 0; // For delta time
-let isMouseDown = false;
-let lastMouseX = 0;
-let lastMouseY = 0;
-
 if (!gl) {
     console.error('WebGL 2.0 is not supported');
 }
 
+// Camera state
+let cameraPosition = [0, 5, -5];
+let cameraOrientation = [0, 0, 0];
+let yaw = 0;
+let pitch = 0;
+let lastTime = 0;
+let isMouseDown = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+// Event listeners (moved after keysPressed declaration)
+function setupEventListeners() {
+    window.addEventListener('keydown', (event) => {
+        keysPressed[event.key] = true;
+    });
+    window.addEventListener('keyup', (event) => {
+        keysPressed[event.key] = false;
+    });
+
+    canvas.addEventListener('mousedown', (event) => {
+        isMouseDown = true;
+        lastMouseX = event.clientX;
+        lastMouseY = event.clientY;
+    });
+    canvas.addEventListener('mouseup', () => {
+        isMouseDown = false;
+    });
+    canvas.addEventListener('mousemove', (event) => {
+        if (!isMouseDown) return;
+        const dx = event.clientX - lastMouseX;
+        const dy = event.clientY - lastMouseY;
+        const sensitivity = 0.002;
+        yaw += dx * sensitivity;
+        pitch -= dy * sensitivity;
+        pitch = Math.max(-Math.PI/2, Math.min(Math.PI/2, pitch));
+        lastMouseX = event.clientX;
+        lastMouseY = event.clientY;
+    });
+}
+
 // UnityProgress class
-function UnityProgress(dom) {
-    this.progress = 0.0;
-    this.message = "";
-    this.dom = dom;
+class UnityProgress {
+    constructor(dom) {
+        this.progress = 0.0;
+        this.message = "";
+        this.dom = dom;
+    }
 
-    var parent = dom.parentNode;
-
-    this.SetProgress = function (progress) { 
-        if (this.progress < progress) {
-            this.progress = progress; 
-        }
-
-        if (progress == 1) {
+    SetProgress(progress) {
+        if (this.progress < progress) this.progress = progress;
+        if (progress === 1) {
             this.SetMessage("Preparing...");
             document.getElementById("bgBar").style.display = "none";
             document.getElementById("progressBar").style.display = "none";
@@ -46,77 +74,36 @@ function UnityProgress(dom) {
         this.Update();
     }
 
-    this.SetMessage = function (message) { 
-        this.message = message; 
+    SetMessage(message) {
+        this.message = message;
         this.Update();
     }
 
-    this.Clear = function() {
+    Clear() {
         document.getElementById("loadingBox").style.display = "none";
     }
 
-    this.Update = function() {
-        var length = 200 * Math.min(this.progress, 1);
-        var bar = document.getElementById("progressBar");
-        bar.style.width = length + "px";
-        document.getElementById("loadingInfo").innerHTML = this.message;
+    Update() {
+        const bar = document.getElementById("progressBar");
+        bar.style.width = `${200 * Math.min(this.progress, 1)}px`;
+        document.getElementById("loadingInfo").textContent = this.message;
     }
-
-    this.Update();
 }
 
-// Event listeners for key presses and releases
-window.addEventListener('keydown', (event) => {
-    keysPressed[event.key] = true;
-    console.log('Key down:', event.key);
-});
-
-window.addEventListener('keyup', (event) => {
-    keysPressed[event.key] = false;
-    console.log('Key up:', event.key);
-});
-
-// Event listeners for mouse movement
-canvas.addEventListener('mousedown', (event) => {
-    isMouseDown = true;
-    lastMouseX = event.clientX;
-    lastMouseY = event.clientY;
-});
-
-canvas.addEventListener('mouseup', () => {
-    isMouseDown = false;
-});
-
-// Initialization function
+// Initialize the application
 function init() {
+    setupEventListeners(); // Set up input handling
+
     const progress = new UnityProgress(document.getElementById('loadingBox'));
-
-    // Simulate loading process
-    function simulateLoading() {
-        let progressValue = 0;
-        const interval = setInterval(() => {
-            progressValue += 0.1; // Increment progress
-            progress.SetProgress(progressValue);
-            if (progressValue >= 1) {
-                clearInterval(interval);
-                progress.SetMessage("Complete");
-                setTimeout(() => progress.Clear(), 500); // Hide the loading box after a short delay
-                render(gl, program);
-            }
-        }, 500); // Adjust the speed of the progress simulation
-    }
-
     const program = initializeShaders(gl);
-    if (!program) return;
     
-    setupGeometry(gl, program);
-
-    if (!gl) {
-        console.error('WebGL 2.0 is not supported');
+    if (!program) {
+        console.error('Shader program failed to initialize');
         return;
     }
 
-    simulateLoading();
+    setupGeometry(gl, program);
+    simulateLoading(progress, program);
 }
 
 init();
