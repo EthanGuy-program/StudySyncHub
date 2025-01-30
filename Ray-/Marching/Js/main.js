@@ -199,11 +199,36 @@ function getRotationMatrix(yaw, pitch) {
     const cosPitch = Math.cos(pitch);
     const sinPitch = Math.sin(pitch);
 
-    return new Float32Array([
-        cosYaw, 0, sinYaw,
-        sinPitch * sinYaw, cosPitch, -sinPitch * cosYaw,
-        -sinYaw * cosPitch, sinPitch, cosYaw * cosPitch
-    ]);
+    // Create a rotation matrix for yaw (around Y-axis)
+    const yawMatrix = [
+        cosYaw, 0, -sinYaw,
+        0, 1, 0,
+        sinYaw, 0, cosYaw
+    ];
+
+    // Create a rotation matrix for pitch (around X-axis)
+    const pitchMatrix = [
+        1, 0, 0,
+        0, cosPitch, sinPitch,
+        0, -sinPitch, cosPitch
+    ];
+
+    // Combine yaw and pitch rotations
+    const rotationMatrix = [
+        yawMatrix[0] * pitchMatrix[0] + yawMatrix[1] * pitchMatrix[3] + yawMatrix[2] * pitchMatrix[6],
+        yawMatrix[0] * pitchMatrix[1] + yawMatrix[1] * pitchMatrix[4] + yawMatrix[2] * pitchMatrix[7],
+        yawMatrix[0] * pitchMatrix[2] + yawMatrix[1] * pitchMatrix[5] + yawMatrix[2] * pitchMatrix[8],
+
+        yawMatrix[3] * pitchMatrix[0] + yawMatrix[4] * pitchMatrix[3] + yawMatrix[5] * pitchMatrix[6],
+        yawMatrix[3] * pitchMatrix[1] + yawMatrix[4] * pitchMatrix[4] + yawMatrix[5] * pitchMatrix[7],
+        yawMatrix[3] * pitchMatrix[2] + yawMatrix[4] * pitchMatrix[5] + yawMatrix[5] * pitchMatrix[8],
+
+        yawMatrix[6] * pitchMatrix[0] + yawMatrix[7] * pitchMatrix[3] + yawMatrix[8] * pitchMatrix[6],
+        yawMatrix[6] * pitchMatrix[1] + yawMatrix[7] * pitchMatrix[4] + yawMatrix[8] * pitchMatrix[7],
+        yawMatrix[6] * pitchMatrix[2] + yawMatrix[7] * pitchMatrix[5] + yawMatrix[8] * pitchMatrix[8]
+    ];
+
+    return new Float32Array(rotationMatrix);
 }
 
 // Resize the canvas to fit the display size
