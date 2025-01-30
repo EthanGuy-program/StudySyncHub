@@ -10,6 +10,17 @@ let isMouseDown = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 
+// Initialize key states
+const keysPressed = {
+    w: false,
+    a: false,
+    s: false,
+    d: false,
+    e: false,
+    q: false,
+    Shift: false
+};
+
 if (!gl) {
     console.error('WebGL 2.0 is not supported');
 }
@@ -186,17 +197,6 @@ function resizeCanvasToDisplaySize() {
     }
     return false; // Indicate that the canvas size remains unchanged
 }
-
-// Initialize key states
-const keysPressed = {
-    w: false,
-    a: false,
-    s: false,
-    d: false,
-    e: false,
-    q: false,
-    Shift: false
-};
 
 // Update camera position based on pressed keys
 function eulerToRotationMatrix(yaw, pitch, roll) {
