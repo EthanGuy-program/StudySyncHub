@@ -225,53 +225,55 @@ function eulerToRotationMatrix(yaw, pitch, roll) {
 }
 
 function updateCameraPosition(cameraPosition, cameraOrientation) {
-    if (Object.values(keysPressed).includes(true)) {
-        const moveAmount = keysPressed.Shift ? 0.2 : 0.1;
-        console.log('Initial cameraPosition:', cameraPosition);
-        console.log('Initial cameraOrientation:', cameraOrientation);
+    if(keysPressed) {
+        if (Object.values(keysPressed).includes(true)) {
+            const moveAmount = keysPressed.Shift ? 0.2 : 0.1;
+            console.log('Initial cameraPosition:', cameraPosition);
+            console.log('Initial cameraOrientation:', cameraOrientation);
 
-        let moveDirection = [0, 0, 0];
-        if (keysPressed.w) moveDirection[2] += moveAmount; // Move forward
-        if (keysPressed.s) moveDirection[2] -= moveAmount; // Move backward
-        if (keysPressed.a) moveDirection[0] -= moveAmount; // Move left
-        if (keysPressed.d) moveDirection[0] += moveAmount; // Move right
-        if (keysPressed.q) moveDirection[1] -= moveAmount; // Move down
-        if (keysPressed.e) moveDirection[1] += moveAmount; // Move up
+            let moveDirection = [0, 0, 0];
+            if (keysPressed.w) moveDirection[2] += moveAmount; // Move forward
+            if (keysPressed.s) moveDirection[2] -= moveAmount; // Move backward
+            if (keysPressed.a) moveDirection[0] -= moveAmount; // Move left
+            if (keysPressed.d) moveDirection[0] += moveAmount; // Move right
+            if (keysPressed.q) moveDirection[1] -= moveAmount; // Move down
+            if (keysPressed.e) moveDirection[1] += moveAmount; // Move up
 
-        console.log('Move direction before normalization:', moveDirection);
+            console.log('Move direction before normalization:', moveDirection);
 
-        const length = Math.sqrt(moveDirection[0] * moveDirection[0] +
-                                  moveDirection[1] * moveDirection[1] +
-                                  moveDirection[2] * moveDirection[2]);
+            const length = Math.sqrt(moveDirection[0] * moveDirection[0] +
+                                    moveDirection[1] * moveDirection[1] +
+                                    moveDirection[2] * moveDirection[2]);
 
-        if (length > 0) {
-            const normalizationFactor = moveAmount / length;
-            moveDirection[0] *= normalizationFactor;
-            moveDirection[1] *= normalizationFactor;
-            moveDirection[2] *= normalizationFactor;
+            if (length > 0) {
+                const normalizationFactor = moveAmount / length;
+                moveDirection[0] *= normalizationFactor;
+                moveDirection[1] *= normalizationFactor;
+                moveDirection[2] *= normalizationFactor;
+            }
+
+            console.log('Normalized moveDirection:', moveDirection);
+
+            // Convert cameraOrientation from angles to rotation matrix
+            const [yaw, pitch, roll] = cameraOrientation;
+            const rotationMatrix = eulerToRotationMatrix(yaw, pitch, roll);
+
+            // Apply the rotation matrix to the move direction
+            const orientedMoveDirection = [
+                moveDirection[0] * rotationMatrix[0] + moveDirection[1] * rotationMatrix[3] + moveDirection[2] * rotationMatrix[6],
+                moveDirection[0] * rotationMatrix[1] + moveDirection[1] * rotationMatrix[4] + moveDirection[2] * rotationMatrix[7],
+                moveDirection[0] * rotationMatrix[2] + moveDirection[1] * rotationMatrix[5] + moveDirection[2] * rotationMatrix[8]
+            ];
+
+            console.log('Oriented moveDirection:', orientedMoveDirection);
+
+            // Update camera position based on orientedMoveDirection
+            cameraPosition[0] += orientedMoveDirection[0];
+            cameraPosition[1] += orientedMoveDirection[1];
+            cameraPosition[2] += orientedMoveDirection[2];
+
+            console.log('Updated cameraPosition:', cameraPosition);
         }
-
-        console.log('Normalized moveDirection:', moveDirection);
-
-        // Convert cameraOrientation from angles to rotation matrix
-        const [yaw, pitch, roll] = cameraOrientation;
-        const rotationMatrix = eulerToRotationMatrix(yaw, pitch, roll);
-
-        // Apply the rotation matrix to the move direction
-        const orientedMoveDirection = [
-            moveDirection[0] * rotationMatrix[0] + moveDirection[1] * rotationMatrix[3] + moveDirection[2] * rotationMatrix[6],
-            moveDirection[0] * rotationMatrix[1] + moveDirection[1] * rotationMatrix[4] + moveDirection[2] * rotationMatrix[7],
-            moveDirection[0] * rotationMatrix[2] + moveDirection[1] * rotationMatrix[5] + moveDirection[2] * rotationMatrix[8]
-        ];
-
-        console.log('Oriented moveDirection:', orientedMoveDirection);
-
-        // Update camera position based on orientedMoveDirection
-        cameraPosition[0] += orientedMoveDirection[0];
-        cameraPosition[1] += orientedMoveDirection[1];
-        cameraPosition[2] += orientedMoveDirection[2];
-
-        console.log('Updated cameraPosition:', cameraPosition);
     }
 }
 
