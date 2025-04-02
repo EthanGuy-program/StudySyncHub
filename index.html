@@ -1,24 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Menu</title>
-    <link href="./Styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <title>StudySyncVault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Highlight Effect */
+        .highlight-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(-2px);
+        }
+        
+        /* Hover & Active Effects */
+        .hover-parent:hover .highlight-text {
+            opacity: 1;
+            transform: translate(2px, 2px);
+        }
+    </style>
 </head>
+<body class="bg-gray-900 text-white font-sans">
+    
+    <!-- FULL-WIDTH TOP NAVIGATION -->
+    <nav class="bg-black p-4 shadow-lg w-full fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-6">
+            
+            <!-- Animated Title with Hover Effect -->
+            <a href="https://www.studysyncvault.com" class="relative hover-parent text-3xl font-bold text-yellow-400">
+                <span class="relative z-10">STUDYSYNCVAULT</span>
+                <span class="highlight-text text-yellow-200">STUDYSYNCVAULT</span>
+            </a>
 
-<body>
-    <div class="carousel-container">
-        <div class="carousel">
-            <div class="card" data-url="https://www.studysyncvault.com/notepad">Notepad</div>
-            <div class="card" data-url="https://example.com/2">Card 2</div>
-            <div class="dropdown" data-links="https://www.studysyncvault.com/games/Home/|https://www.studysyncvault.com/games/AR/">Games</div>
-            <div class="dropdown" data-links="https://www.studysyncvault.com/Ray-/Marching|https://www.studysyncvault.com/Ray-/Casting">Ray-</div>
-            <div class="card" data-url="https://example.com/5">Card 5</div>
+            <ul class="flex space-x-6">
+                <li class="relative group">
+                    <button class="hover:text-yellow-400">Tools</button>
+                    <ul class="absolute hidden group-hover:block bg-black text-white mt-2 w-40">
+                        <li class="px-4 py-2 hover:bg-gray-800">
+                            <a href="https://www.studysyncvault.com/notepad">Notepad</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="relative group">
+                    <button class="hover:text-yellow-400">Games</button>
+                    <ul class="absolute hidden group-hover:block bg-black text-white mt-2 w-40">
+                        <li class="px-4 py-2 hover:bg-gray-800">
+                            <a href="https://www.studysyncvault.com/games/Home/">Home</a>
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-800">
+                            <a href="https://www.studysyncvault.com/games/AR/">AR Games</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="relative group">
+                    <button class="hover:text-yellow-400">Ray-Marching</button>
+                    <ul class="absolute hidden group-hover:block bg-black text-white mt-2 w-52">
+                        <li class="px-4 py-2 hover:bg-gray-800">
+                            <a href="https://www.studysyncvault.com/Ray-/Marching">Marching</a>
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-800">
+                            <a href="https://www.studysyncvault.com/Ray-/Casting">Casting</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </div>
-    <script src="./Script.js"></script>
+    </nav>
+
+    <!-- Push content down to avoid overlap -->
+    <header class="relative w-full h-64 flex items-center justify-center mt-16">
+        <h1 class="text-5xl font-bold text-white">
+            Welcome to StudySyncVault
+        </h1>
+    </header>
+
 </body>
 </html>
