@@ -3,39 +3,49 @@ function UnityProgress(dom) {
     this.message = "";
     this.dom = dom;
 
-    var parent = dom.parentNode;
+    // Cache DOM elements
+    this.loadingBox = document.getElementById("loadingBox");
+    this.bgBar = document.getElementById("bgBar");
+    this.progressBar = document.getElementById("progressBar");
+    this.loadingInfo = document.getElementById("loadingInfo");
 
-    this.SetProgress = function (progress) { 
+    this.SetProgress = function (progress) {
+        // Only update progress if it's increasing
         if (this.progress < progress) {
-            this.progress = progress; 
+            this.progress = progress;
         }
 
-        if (progress == 1) {
-            this.SetMessage("Preparing...");
-            document.getElementById("bgBar").style.display = "none";
-            document.getElementById("progressBar").style.display = "none";
+        // When reaching full progress, hide bars (without changing the message)
+        if (progress >= 1) {
+            if (this.bgBar) this.bgBar.style.display = "none";
+            if (this.progressBar) this.progressBar.style.display = "none";
         }
         this.Update();
     }
 
-    this.SetMessage = function (message) { 
-        this.message = message; 
+    this.SetMessage = function (message) {
+        this.message = message;
         this.Update();
     }
 
     this.Clear = function() {
-        document.getElementById("loadingBox").style.display = "none";
+        if (this.loadingBox) this.loadingBox.style.display = "none";
     }
 
     this.Update = function() {
         var length = 200 * Math.min(this.progress, 1);
-        var bar = document.getElementById("progressBar");
-        bar.style.width = length + "px";
-        document.getElementById("loadingInfo").innerHTML = this.message;
+        if (this.progressBar) {
+            this.progressBar.style.width = length + "px";
+        }
+        if (this.loadingInfo) {
+            this.loadingInfo.innerHTML = this.message;
+        }
     }
 
+    // Initial update
     this.Update();
 }
+
 const progress = new UnityProgress(document.getElementById('loadingBox'));
 
 // Simulate loading process
@@ -52,6 +62,7 @@ function simulateLoading() {
     }, 500); // Adjust the speed of the progress simulation
 }
 simulateLoading();
+
 const canvas = document.getElementById('glCanvas');
 const gl = canvas.getContext('webgl');
 
@@ -60,6 +71,7 @@ if (!gl) {
     alert('Your browser does not support WebGL');
 }
 
+// Set canvas dimensions to fill the window
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 gl.viewport(0, 0, canvas.width, canvas.height);
@@ -86,8 +98,7 @@ const fsSource = `
 
     float scene(vec3 p) {
         // Example scene with a sphere
-        float d = length(p - vec3(0.0, 0.0, 0.0)) - 1.0;
-        return d;
+        return length(p) - 1.0;
     }
 
     vec3 getNormal(vec3 p) {
@@ -149,8 +160,12 @@ const shaderProgram = gl.createProgram();
 gl.attachShader(shaderProgram, vertexShader);
 gl.attachShader(shaderProgram, fragmentShader);
 gl.linkProgram(shaderProgram);
+if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+    console.error('Program failed to link:', gl.getProgramInfoLog(shaderProgram));
+}
 gl.useProgram(shaderProgram);
 
+// Setup the position buffer
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 const positions = new Float32Array([
