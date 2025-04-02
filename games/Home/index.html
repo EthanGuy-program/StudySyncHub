@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>do you remember?</title>
 <link rel="icon" type="image/x-icon" href="icon.ico" id="icono">
 <link rel="stylesheet" type="text/css" href='./Styles.css'>
 <script src="./script.js"></script>
 </head>
 <body>
-<a class="head"><a>
+<a class="head"></a>
 <!-- Gradient layer -->
 <div class="gradient-layer" id="otherElement" style="z-index:1;"> <!--gradient top-->
   <!-- Image inside the gradient layer -->
@@ -22,19 +23,19 @@
  </div>
 <!-- Box layer below the gradient layer -->
 <div class="hud" id="loader"> <!--//this is the bar at the bottom-->
-    <a id="start-Button"><img src="Images/Microsoft.png" alt="start button">start</a> <!--//this is the start button in the corner-->
+    <div id="start-Button"><img src="Images/Microsoft.png" alt="start button">start</div> <!--//this is the start button in the corner-->
 </div>
-<a class="box-layer" id="bodder">---------- 1. Added draggable windows ---------------- 2. Added chill music ------------ 3. start menu works ------------- 4. fixed bug with window overlap --------------- 5. Notepad was added</a><!--this is what I log stuff in-->
-<a class="gradient-layer" style="font-family: Regular-font; font-size: 8px; left: 40.2%; width:150px; height: 10px; color:white; z-index: 1;" id="kodder">Change log<img style="left: 92.5%;" src="Images/untitled.png" alt="Sample Image" class="ender"></a> <!--//change log-->
+<div class="box-layer" id="bodder">---------- 1. Added draggable windows ---------------- 2. Added chill music ------------ 3. start menu works ------------- 4. fixed bug with window overlap --------------- 5. Notepad was added</div><!--this is what I log stuff in-->
+<div class="gradient-layer" style="font-family: Regular-font; font-size: 8px; left: 40.2%; width:150px; height: 10px; color:white; z-index: 1;" id="kodder">Change log<img style="left: 92.5%;" src="Images/untitled.png" alt="Sample Image" class="ender"></div> <!--//change log-->
 
 <textarea type="text" id="fname" name="fname" class="box-layer" style="line-height:80%; height: 150px; width: 350px; color:white; font-size:12px; align-items: flex-start; vertical-align: text-top; z-index:1; left:60%;">
     
     
 </textarea> <!--text part of notepad-->
 
-<a class="gradient-layer" style="font-family: Regular-font; font-size: 8px; left: 60.3%; width:354px; height: 10px; color:white; z-index: 1;" id="iname">Notepad<img style="left: 96.8%;" src="Images/untitled.png" alt="Sample Image" class="ender"></a> <!--gradient top-->  
+<div class="gradient-layer" style="font-family: Regular-font; font-size: 8px; left: 60.3%; width:354px; height: 10px; color:white; z-index: 1;" id="iname">Notepad<img style="left: 96.8%;" src="Images/untitled.png" alt="Sample Image" class="ender"></div> <!--gradient top-->  
 
-<b class="movingBox" src="movingBox">
+<div class="movingBox" src="movingBox">
 <button id="Chill" class="toggle-audio" data-target="background-audio" type="button">Chill Music Button</button>
 <audio class="background-audio" loop>
     <source src="Entites/1848354536 (1).mp3" type="audio/mp3">
@@ -45,7 +46,7 @@
     <source src="Extra/Valve Studio Orchestra - Jungle Inferno (more music from Team Fortress 2) - 02 Saxton's Dilemma.mp3" type="audio/mp3">
     Your browser does not support the audio element.
 </audio>
-</b>
+</div>
 <!-- Hidden iframe to display the index.html content -->
 <iframe id="myIframe" src="" width=100% height=100% frameborder="0" title="game"></iframe>
 <script type="text/javascript">
