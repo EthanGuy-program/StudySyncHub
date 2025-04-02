@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows 95 Revival with Gradient</title>
+  <link rel="icon" type="image/x-icon" href="icon.ico" id="icono">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./Styles.css">
+  <script src="./script.js"></script>
+  <style>
+    /* Basic Windows 95 styles */
+    body {
+      background: #008080;
+      color: black;
+      font-family: 'Press Start 2P', monospace; /* Apply Press Start 2P font */
+      -webkit-font-smoothing: antialiased; /* For WebKit browsers (Chrome, Safari) */
+      -moz-osx-font-smoothing: grayscale; /* For Firefox */
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+      
+    }
+
+/* Style for the close button (X) */
+.close-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size:16px; /* incease font size to fit the "X" */
+  color: black;                 
+  cursor: pointer;
+  padding: 0; /* Remove padding to make it fit perfectly */
+  background-color: rgba(198, 198, 198, 1); /* Light color */
+  border: 3px outset rgba(246, 246, 246, 1); /* Outset border style */
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center the X horizontally */
+  align-items: center; /* Center the X vertically */
+  text-align: center; /* Ensure the text is centered */
+  line-height: 30px; /* Make sure the "X" is vertically centered */
+}
+
+.close-btn:hover {
+  color: #ff4c4c;
+  transform: scale(1.1);
+}
+
+.close-btn:active {
+  color: #cc0000;
+}
+
+    .window-95 {
+      background: #C0C0C0;
+      background-color: rgba(158, 158, 158, 1); /* Light color */
+      border: 3px outset rgba(146, 146, 146, 1); /* Outset border style */
+      width: 300px;
+      position: absolute;
+    }
+    /* Gradient for the title bar (grabber area) */
+    .title-bar {
+      font-size: 10px;
+      background: linear-gradient(to right, rgb(36, 73, 133), rgb(66, 135, 245)); /* Gradient effect */
+      color: white;
+      padding: 2px 0px;
+      cursor: move;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 2px; 
+    }
+    .content {
+      padding: 10px;
+      background: #FFF;
+      color: black;
+      background-color: rgba(158, 158, 158, 1); 
+    }
+    /* Start button style */
+    #start-button {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background: #C0C0C0;
+      padding: 5px 10px;
+      border: 3px outset rgba(146, 146, 146, 1);
+      cursor: pointer;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Start Menu Button -->
+  <div id="start-button">Start</div>
+  
+  <!-- Main Window -->
+  <div class="window-95" id="main-window" style="top: 50px; left: 50px;">
+    <div class="title-bar">
+      <span>Main Window</span>
+      <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';">X</span>
+    </div>
+    <div class="content">
+      Hello world!<br>
+      <button type="button" onclick="openIframeWindow();">Open Game Window</button>
+    </div>
+  </div>
+  
+  <!-- Notepad Window -->
+  <div class="window-95" id="notepad-window" style="top: 150px; left: 100px;">
+    <div class="title-bar">
+      <span>Notepad</span>
+      <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';">X</span>
+    </div>
+    <div class="content">
+      <textarea style="width:100%; height:150px;" placeholder="Type something..."></textarea>
+    </div>
+  </div>
+  
+  <!-- Change Log Window -->
+  <div class="window-95" id="log-window" style="top: 250px; left: 150px;">
+    <div class="title-bar">
+      <span>Change Log</span>
+      <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';">X</span>
+    </div>
+    <div class="content">
+      <p>1. Added draggable windows</p>
+      <p>2. Added chill music</p>
+      <p>3. Start menu works</p>
+      <p>4. Fixed bug with window overlap</p>
+      <p>5. Notepad was added</p>
+    </div>
+  </div>
+  
+  <!-- Iframe (Game) Window -->
+  <div class="window-95" id="iframe-window" style="top: 350px; left: 200px; display: none;">
+    <div class="title-bar">
+      <span>Game Window</span>
+      <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';">X</span>
+    </div>
+    <div class="content">
+      <iframe id="myIframe" src="" width="100%" height="200" frameborder="0" title="game"></iframe>
+    </div>
+  </div>
+  
+  <!-- Audio Control Window -->
+  <div class="window-95" id="audio-window" style="top: 450px; left: 250px;">
+    <div class="title-bar">
+      <span>Audio Controls</span>
+      <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none';">X</span>
+    </div>
+    <div class="content">
+      <button id="Chill" class="toggle-audio" data-target="background-audio" type="button">Chill Music</button>
+      <audio class="background-audio" loop>
+        <source src="Entites/1848354536 (1).mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+      <br>
+      <button id="Chill2" class="toggle-audio" data-target="background-audio2" type="button">Neat Music</button>
+      <audio class="background-audio2" loop>
+        <source src="Extra/Valve Studio Orchestra - Jungle Inferno (more music from Team Fortress 2) - 02 Saxton's Dilemma.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Simple draggable functionality for our windows
+    function makeDraggable(el) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      const header = el.querySelector('.title-bar');
+      if (header) {
+        header.onmousedown = dragMouseDown;
+      } else {
+        el.onmousedown = dragMouseDown;
+      }
+      
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+      
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        el.style.top = (el.offsetTop - pos2) + "px";
+        el.style.left = (el.offsetLeft - pos1) + "px";
+      }
+      
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+    
+    // Enable draggable functionality on all Windows 95 elements
+    document.querySelectorAll('.window-95').forEach(makeDraggable);
+    
+    // Function to open the iframe (game) window
+    function openIframeWindow() {
+      const iframeWindow = document.getElementById('iframe-window');
+      iframeWindow.style.display = 'block';
+      document.getElementById('myIframe').src = 'index.html';
+    }
+  </script>
+</body>
+</html>
