@@ -6,7 +6,16 @@
     <html class="size-medium"> /* current sizes */
     <html class="size-large">  /* larger accents, borders, fonts */
 */
-
+@font-face {
+  font-family: Regular-font;
+  src: url(../../Fonts/pcsenior.ttf);
+  letter-spacing: 0px;
+  }
+  @font-face {
+  font-family: Display-font;
+  src: url(../../Fonts/novem___.ttf);
+  letter-spacing: 0px;
+  }
 /* 1. Define default (medium) CSS variables */
 :root {
   /* Accent and gradient */
