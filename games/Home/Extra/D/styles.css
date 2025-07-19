@@ -1,0 +1,224 @@
+/*
+  responsive_styles.css
+  Single stylesheet supporting three size variants: small, medium (default), large.
+  Usage: add one of these classes to <html>:
+    <html class="size-small">  /* smaller accents, borders, fonts */
+    <html class="size-medium"> /* current sizes */
+    <html class="size-large">  /* larger accents, borders, fonts */
+*/
+
+/* 1. Define default (medium) CSS variables */
+:root {
+  /* Accent and gradient */
+  --gradient-height: 15px;
+  --gradient-width: 250px;
+  --gradient-font-size: 8px;
+
+  /* Window (box-layer) */
+  --window-border-size: 3px;
+  --window-width: 250px;
+  --window-height: 150px;
+  --window-font-size: 14px;
+
+  /* HUD */
+  --hud-height: 3%;
+  --hud-font-size: 14px;
+  --hud-border-size: 2px;
+
+  /* Button */
+  --btn-padding: 3px;
+  --btn-width: 133%;
+  --btn-height: 10%;
+
+  /* General*/
+  --transition-duration: 0.3s;
+}
+
+/* 2. Small variant: decrease sizes */
+html.size-small {
+  --gradient-height: 10px;
+  --gradient-width: 200px;
+  --gradient-font-size: 6px;
+
+  --window-border-size: 2px;
+  --window-width: 200px;
+  --window-height: 120px;
+  --window-font-size: 12px;
+
+  --hud-height: 2.5%;
+  --hud-font-size: 12px;
+  --hud-border-size: 1px;
+
+  --btn-padding: 2px;
+  --btn-width: 120%;
+  --btn-height: 8%;
+}
+
+/* 3. Large variant: increase sizes */
+html.size-large {
+  --gradient-height: 20px;
+  --gradient-width: 300px;
+  --gradient-font-size: 10px;
+
+  --window-border-size: 4px;
+  --window-width: 300px;
+  --window-height: 180px;
+  --window-font-size: 16px;
+
+  --hud-height: 4%;
+  --hud-font-size: 16px;
+  --hud-border-size: 3px;
+
+  --btn-padding: 4px;
+  --btn-width: 150%;
+  --btn-height: 12%;
+}
+
+/* Base resets and common styles */
+.hidden { display: none !important; }
+
+/* Gradient layer */
+.gradient-layer {
+  position: absolute;
+  top: 27px;
+  left: 27px;
+  width: var(--gradient-width);
+  height: var(--gradient-height);
+  font-family: "Regular-font";
+  font-size: var(--gradient-font-size);
+  color: white;
+  background: linear-gradient(to right, rgb(36, 73, 133), rgb(66, 135, 245));
+  z-index: 6;
+}
+
+.gradient-layer .ender-icon {
+  position: absolute;
+  image-rendering: pixelated;
+  max-width: 155%;
+  height: 100%;
+  top: 0;
+  left: calc(var(--gradient-width) - 15px);
+  cursor: url('Images/select.png'), pointer;
+}
+
+/* Window content */
+.window {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: var(--window-width);
+  height: var(--window-height);
+  font-family: "Regular-font";
+  font-size: var(--window-font-size);
+  background-color: rgba(158, 158, 158, 1);
+  border: var(--window-border-size) outset rgba(146, 146, 146, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 0;
+}
+
+/* HUD bar */
+.hud-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--hud-height);
+  font-family: "Regular-font";
+  font-size: var(--hud-font-size);
+  background-color: rgba(222, 222, 222, 1);
+  border: var(--hud-border-size) outset rgba(255, 255, 255, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 100;
+}
+
+.hud-bar .start-button {
+  position: absolute;
+  left: 1%;
+  width: 5%;
+  height: 70%;
+  font-size: 70%;
+  font-family: "Regular-font";
+  background-color: rgba(222, 222, 222, 1);
+  border: 1px outset rgba(255, 255, 255, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  cursor: pointer;
+}
+
+.hud-bar .start-button img {
+  width: 25%;
+  height: 70%;
+  border: none;
+  z-index: 9;
+}
+
+.hud-bar .start-button:hover {
+  border-style: inset;
+}
+
+/* Action button */
+.action-button {
+  padding: var(--btn-padding);
+  width: var(--btn-width);
+  height: var(--btn-height);
+  background-image: url('Images/Win1999.png');
+  background-repeat: no-repeat;
+  background-size: auto;
+  border: none;
+  image-rendering: pixelated;
+  cursor: url('Images/select.png'), pointer;
+  position: relative;
+}
+
+.action-button:hover {
+  background-image: url('Images/Win2000.png');
+}
+
+/* Movable widget */
+.movable-widget {
+  position: absolute;
+  z-index: 9;
+  bottom: 3%;
+  width: 80px;
+  height: 10px;
+  background-color: rgba(222, 222, 222, 1);
+  border: var(--hud-border-size) outset rgba(255, 255, 255, 1);
+  cursor: url('Images/passive.png'), pointer;
+  transition: height var(--transition-duration) ease;
+}
+
+.movable-widget button {
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  width: 80%;
+  height: 30%;
+  background-color: rgba(222, 222, 222, 1);
+  border: var(--hud-border-size) outset rgba(255, 255, 255, 1);
+  cursor: url('Images/select.png'), pointer;
+}
+
+.movable-widget.moved {
+  height: 30%;
+  transform: translateY(-90%);
+}
+
+/* Embedded frame */
+.embedded-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+  cursor: url('Images/Waiting.png'), auto;
+}
