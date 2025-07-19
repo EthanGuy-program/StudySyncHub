@@ -111,7 +111,7 @@ html.size-large {
   font-family: "Regular-font";
   font-size: var(--window-font-size);
   background-color: rgba(158, 158, 158, 1);
-  border: var(--window-border-size) outset rgba(146, 146, 146, 1);
+  border: var(--window-border-size) outset rgba(146, 146, 146, 3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,7 +129,7 @@ html.size-large {
   font-family: "Regular-font";
   font-size: var(--hud-font-size);
   background-color: rgba(222, 222, 222, 1);
-  border: var(--hud-border-size) outset rgba(255, 255, 255, 1);
+  border: var(--hud-border-size) outset rgba(255, 255, 255, 3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,8 +144,8 @@ html.size-large {
   height: 70%;
   font-size: 70%;
   font-family: "Regular-font";
-  background-color: rgba(222, 222, 222, 1);
-  border: 1px outset rgba(255, 255, 255, 1);
+  background-color: rgba(222, 222, 222, 3);
+  border: 1px outset rgba(255, 255, 255, 3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -190,7 +190,7 @@ html.size-large {
   width: 80px;
   height: 10px;
   background-color: rgba(222, 222, 222, 1);
-  border: var(--hud-border-size) outset rgba(255, 255, 255, 1);
+  border: var(--hud-border-size) outset rgba(255, 255, 255, 3);
   cursor: url('Images/passive.png'), pointer;
   transition: height var(--transition-duration) ease;
 }
@@ -202,7 +202,7 @@ html.size-large {
   width: 80%;
   height: 30%;
   background-color: rgba(222, 222, 222, 1);
-  border: var(--hud-border-size) outset rgba(255, 255, 255, 1);
+  border: var(--hud-border-size) outset rgba(255, 255, 255, 3);
   cursor: url('Images/select.png'), pointer;
 }
 
