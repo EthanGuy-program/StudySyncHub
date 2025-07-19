@@ -239,10 +239,31 @@ body.size-large {
   </style>
 </head>
 <body>
-<body class="size-small">   <!-- smaller accents, borders, fonts -->
-<body class="size-medium">  <!-- current dimensions -->
-<body class="size-large">   <!-- pumped‑up big boy mode -->
-  <script type="text/javascript">
-  </script>
+<!-- Only one <body> tag; uncomment the size class you want or toggle via JS -->
+<body class="size-medium">
+  <div class="gradient-layer">
+    <!-- Your gradient content here -->
+    <img src="Images/select.png" alt="Selector">
+  </div>
+
+  <div class="box-layer">
+    <!-- Your box content here -->
+    <button id="actualButton"></button>
+  </div>
+
+  <div class="hud">
+    <a href="#">
+      <img src="Images/icon.png" alt="Icon">
+    </a>
+    <!-- Your HUD content here -->
+  </div>
+
+  <div class="movingBox">
+    <button>Click Me</button>
+  </div>
+
+  <!-- Iframes (hidden by default) -->
+  <iframe id="iframe"></iframe>
+  <iframe id="myIframe"></iframe>
 </body>
 </html>
