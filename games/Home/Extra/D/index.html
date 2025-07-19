@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Windows 95 Revival with Gradient</title>
-  <link rel="icon" type="image/x-icon" href="icon.ico" id="icono">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="icon" type="image/x-icon" href="icon.ico" id="icono" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
   <script src="./script.js"></script>
 </head>
 <body style="margin:0; padding:0; background:#222;">
 
   <!-- Gradient bar with explicit width and height -->
-  <div class="gradient-layer" style="top:27px; left:27px; width:250px; height:15px; position:absolute;">
+  <div class="gradient-layer size-medium" style="top:27px; left:27px; width:250px; height:15px; position:absolute;">
     Gradient Accent
     <img src="Images/untitled.png" alt="End Icon" class="ender-icon" />
   </div>
 
   <!-- Main window box with explicit size -->
-  <div class="window" style="top:60px; left:27px; width:250px; height:150px; position:absolute;">
+  <div class="window size-medium" style="top:60px; left:27px; width:250px; height:150px; position:absolute;">
     Hello world
-    <button class="action-button" type="button" onclick="alert('Button clicked!')">Look at it</button>
+    <button class="action-button size-medium" type="button" onclick="alert('Button clicked!')">Look at it</button>
   </div>
 
   <!-- HUD bar fixed at bottom -->
-  <div class="hud-bar" style="position:fixed; bottom:0; left:0; width:100%; height:3%;">
-    <div class="start-button" tabindex="0">
+  <div class="hud-bar size-medium" style="position:fixed; bottom:0; left:0; width:100%; height:3%;">
+    <div class="start-button size-medium" tabindex="0">
       <img src="Images/Microsoft.png" alt="Start" /> Start
     </div>
   </div>
 
   <!-- Movable widget above HUD -->
-  <div class="movable-widget" style="position:fixed; bottom:40px; left:27px; width:80px; height:10px;">
-    <button type="button">Chill Music</button>
+  <div class="movable-widget size-medium" style="position:fixed; bottom:40px; left:27px; width:80px; height:10px;">
+    <button class="size-medium" type="button">Chill Music</button>
   </div>
 
   <!-- Hidden iframe -->
-  <iframe class="embedded-frame" src="" title="Game Frame"></iframe>
+  <iframe class="embedded-frame size-medium" src="" title="Game Frame"></iframe>
 
 </body>
 </html>
